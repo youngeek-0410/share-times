@@ -1,0 +1,45 @@
+{
+  "name": "share-times",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/youngeek-0410/share-times.git"
+  },
+  "author": "kathmandu777",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/youngeek-0410/share-times/issues"
+  },
+  "homepage": "https://github.com/youngeek-0410/share-times#readme",
+  "devDependencies": {
+    "husky": "^4.3.8",
+    "lint-staged": "^8.1.5",
+    "markdownlint": "^0.24.0",
+    "markdownlint-cli": "^0.28.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "linters": {
+      "*.py": [
+        "isort -m 3",
+        "autoflake -i --remove-all-unused-imports --ignore-init-module-imports --remove-unused-variables",
+        "black",
+        "flake8",
+        "git add"
+      ],
+      "*.md": [
+        "markdownlint -f",
+        "git add"
+      ]
+    }
+  }
+}
