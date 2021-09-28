@@ -12,9 +12,8 @@ then
 fi
 
 # python manage.py flush --no-input
-# TODO: after make account model, uncomment
-# python manage.py makemigrations
-# python manage.py migrate
+python manage.py makemigrations
+python manage.py migrate
 python manage.py collectstatic --no-input
 
 # hot reload
