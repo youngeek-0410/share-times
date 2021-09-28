@@ -1,3 +1,5 @@
+import uuid
+
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 from django.utils import timezone
@@ -26,10 +28,17 @@ class OrganizationManager(BaseUserManager):
 
 
 class Organization(AbstractBaseUser, PermissionsMixin):
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
     name = models.CharField(
         _("name"),
         max_length=250,
         unique=True,
+    )
+    MAX_LENGTH_DESCRIPTION = 400
+    description = models.CharField(
+        verbose_name=_("展示概要"),
+        blank=True,
+        max_length=MAX_LENGTH_DESCRIPTION,
     )
 
     is_active = models.BooleanField(default=True)
