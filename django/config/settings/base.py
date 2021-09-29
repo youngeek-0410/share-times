@@ -38,12 +38,17 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
+    "corsheaders",
     "account",
+    "core",
+    "timemanager",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -118,6 +123,21 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # auth user model
 AUTH_USER_MODEL = "account.Organization"
 
+# CORS
+# CORS_ORIGIN_ALLOW_ALL = True
+# nextを動かすサーバーを以下に追加する or 上記のCORS_ORIGIN_ALLOW_ALLをTrueにする
+CORS_ORIGIN_WHITELIST = (
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+)
+
+# rest framework
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 10,
+    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.AllowAny"],
+}
+
 
 # logging
 LOG_HANDLER_LEVEL = os.environ.get("DJANGO_LOG_HANDLER_LEVEL", "WARNING")
@@ -186,6 +206,10 @@ LOGGING = {
             "level": LOG_LOGGER_LEVEL,
         },
         "core": {
+            "handlers": ["console", "file"],
+            "level": LOG_LOGGER_LEVEL,
+        },
+        "timemanager": {
             "handlers": ["console", "file"],
             "level": LOG_LOGGER_LEVEL,
         },
