@@ -5,6 +5,8 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+from .organization_type import OrganizationType
+
 
 class OrganizationManager(BaseUserManager):
     use_in_migrations = True
@@ -39,6 +41,12 @@ class Organization(AbstractBaseUser, PermissionsMixin):
         verbose_name=_("展示概要"),
         blank=True,
         max_length=MAX_LENGTH_DESCRIPTION,
+    )
+    type = models.IntegerField(
+        verbose_name=_("type"),
+        choices=OrganizationType.choices(),
+        null=True,
+        blank=True,
     )
 
     is_active = models.BooleanField(default=True)

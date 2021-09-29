@@ -28,7 +28,7 @@ class OrganizationAdmin(admin.ModelAdmin):
     add_form_template = "admin/auth/user/add_form.html"
 
     fieldsets = (
-        (None, {"fields": ("name", "password")}),
+        (None, {"fields": ("name", "password", "type", "description")}),
         (
             _("Permissions"),
             {"fields": ("is_active", "is_staff", "is_superuser", "is_admin", "groups", "user_permissions")},
@@ -39,14 +39,14 @@ class OrganizationAdmin(admin.ModelAdmin):
         (
             None,
             {
-                "fields": ("name", "password1", "password2"),
+                "fields": ("name", "password1", "password2", "type"),
             },
         ),
     )
-    list_filter = ("is_admin",)
-    list_display = ("name",)
+    list_filter = ("is_admin", "type")
+    list_display = ("name", "type", "last_login")
     search_fields = ("name",)
-    ordering = ("date_joined",)
+    ordering = ("last_login",)
     filter_horizontal = (
         "groups",
         "user_permissions",
