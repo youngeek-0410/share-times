@@ -2,8 +2,12 @@ from rest_framework import status, viewsets
 from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 
+from django.contrib.auth import get_user_model
+
 from ..models import WaitingTimeHistory
 from ..serializers import WaitingTimeHistorySerializer, WaitingTimeHistorySubmitSerializer
+
+Organization = get_user_model()
 
 
 class WaitingTimeHistoryViewSet(viewsets.ModelViewSet):
@@ -32,11 +36,15 @@ class WaitingTimeHistoryViewSet(viewsets.ModelViewSet):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def list(self, request, *args, **kwargs):
+        dict = {}
         if self.request.query_params.get("only-latest") == "true":
-            queryset = WaitingTimeHistory.objects.order_by("organization__name", "-created_at").distinct(
-                "organization__name"
-            )
+            for org in Organization.objects.filter(is_admin=False):
+                queryset = (
+                    WaitingTimeHistory.objects.filter(organization__uuid=org.uuid).order_by("-created_at").first()
+                )
+                dict[org.name] = WaitingTimeHistorySerializer(queryset).data
         else:
-            queryset = WaitingTimeHistory.objects.all()
-        serializer = WaitingTimeHistorySerializer(queryset, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+            for org in Organization.objects.filter(is_admin=False):
+                queryset = WaitingTimeHistory.objects.filter(organization__uuid=org.uuid).order_by("-created_at")
+                dict[org.name] = WaitingTimeHistorySerializer(queryset, many=True).data
+        return Response(dict, status=status.HTTP_200_OK)
