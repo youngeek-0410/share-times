@@ -15,10 +15,10 @@ export default function handler(
 ) {
   res.status(200).json(
     {
-        name: "コンピュータ部",
-        description: "部員による展示です",
-        wait_time: 25,
-        created_time: threeHundredSecondsAgo
+      name: "コンピュータ部",
+      description: "部員による展示です",
+      wait_time: 25,
+      created_time: threeHundredSecondsAgo
     }
   )
 }

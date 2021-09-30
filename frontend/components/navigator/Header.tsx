@@ -1,10 +1,10 @@
-import { FC } from "react" 
+import { FC } from "react"
 import {
   Stack,
   Heading,
   Flex,
   Text,
-} from "@chakra-ui/react" 
+} from "@chakra-ui/react"
 
 const Header: FC = () => {
   return (
@@ -23,7 +23,7 @@ const Header: FC = () => {
         </Heading>
       </Flex>
     </Flex>
-  ) 
-} 
+  )
+}
 
-export default Header 
+export default Header

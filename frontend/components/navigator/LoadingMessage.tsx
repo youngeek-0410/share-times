@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { HStack, Spinner, Text } from '@chakra-ui/react'
 
 const LoadingMessage: FC = () => {
-    return(
+    return (
         <HStack alignContent="baseline">
             <Spinner
                 thickness="4px"
