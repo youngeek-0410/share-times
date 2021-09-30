@@ -18,6 +18,7 @@ class WaitingTimeHistorySerializer(serializers.ModelSerializer):
         fields = ("uuid", "waiting_time", "organization", "created_at")
 
     organization = OrganizationSerializer()
+    created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
 
 
 class WaitingTimeHistorySubmitSerializer(serializers.ModelSerializer):
