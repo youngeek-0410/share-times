@@ -1,5 +1,7 @@
 import {NextPage} from 'next'
-import { Box, Button, chakra } from '@chakra-ui/react'
+
+import { Box, Button, chakra, Spinner } from '@chakra-ui/react'
+import ListControlBar from 'components/pages/list/ListControlBar'
 
 const Home: NextPage = () => {
   return(
@@ -9,6 +11,7 @@ const Home: NextPage = () => {
         <chakra.h1 color="tomato">Hello World!</chakra.h1>
       </Box>
       <Button colorScheme="blue">Button</Button>
+      <ListControlBar />
     </div>
   )
 }
