@@ -1,7 +1,6 @@
 from account.serializers import OrganizationSerializer
 from rest_framework import serializers
 
-from django.contrib.auth import get_user_model
 
 from ..models import WaitingTimeHistory
 
@@ -27,6 +26,5 @@ class WaitingTimeHistorySubmitSerializer(serializers.ModelSerializer):
         fields = ("waiting_time", "organization")
 
     organization = serializers.PrimaryKeyRelatedField(
-        queryset=get_user_model().objects.all(),
-        required=True,
+        read_only=True,
     )

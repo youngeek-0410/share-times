@@ -136,7 +136,7 @@ CORS_ORIGIN_WHITELIST = (
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 10,
-    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.AllowAny"],
+    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAdminUser"],
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.BasicAuthentication",
         "rest_framework.authentication.TokenAuthentication",
@@ -144,6 +144,9 @@ REST_FRAMEWORK = {
     ],
 }
 
+# authentication
+LOGIN_URL = "/api-auth/login"
+LOGIN_REDIRECT_URL = "/api//waiting_time_history"
 
 # logging
 LOG_HANDLER_LEVEL = os.environ.get("DJANGO_LOG_HANDLER_LEVEL", "WARNING")
