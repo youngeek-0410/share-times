@@ -30,8 +30,6 @@ class OrganizationViewSet(
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop("partial", True)
         instance = self.get_object()
-        logger.debug(instance)
-        logger.debug(request.user)
         if request.user.uuid != instance.uuid and not request.user.is_admin:
             raise PermissionDenied("You are not allowed to submit this data.")
         serializer = OrganizationSerializer(instance, data=request.data, partial=partial)
