@@ -1,5 +1,4 @@
-import logging
-
+from account.serializers import OrganizationSerializer
 from rest_framework import mixins, status, viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
@@ -9,7 +8,6 @@ from django.contrib.auth import get_user_model
 from ..models import WaitingTimeHistory
 from ..serializers import WaitingTimeHistorySerializer, WaitingTimeHistorySubmitSerializer
 
-logging = logging.getLogger(__name__)
 Organization = get_user_model()
 
 
@@ -25,7 +23,6 @@ class WaitingTimeHistoryViewSet(
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def create(self, request, *args, **kwargs):
-        logging.debug(request.data)
         serializer = WaitingTimeHistorySubmitSerializer(data=request.data)
         if serializer.is_valid():
             instance = serializer.save(organization=request.user)
@@ -40,7 +37,15 @@ class WaitingTimeHistoryViewSet(
                 queryset = (
                     WaitingTimeHistory.objects.filter(organization__uuid=org.uuid).order_by("-created_at").first()
                 )
-                dict[org.name] = WaitingTimeHistorySerializer(queryset).data
+                if queryset is not None:
+                    dict[org.name] = WaitingTimeHistorySerializer(queryset).data
+                else:
+                    dict[org.name] = {
+                        "uuid": None,
+                        "waiting_time": None,
+                        "created_at": None,
+                        "organization": OrganizationSerializer(org).data,
+                    }
         else:
             for org in Organization.objects.filter(is_admin=False):
                 queryset = WaitingTimeHistory.objects.filter(organization__uuid=org.uuid).order_by("-created_at")
