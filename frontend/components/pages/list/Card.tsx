@@ -7,13 +7,15 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 
 import { WaitingTimeHistory } from 'types/WaitingTimeHistories'
 
+import CardBgColor from 'styles/CardBgColors'
+
 dayjs.locale('ja')
 dayjs.extend(relativeTime)
 
 const Card: FC<WaitingTimeHistory> = ( post ) => {
     return (
         <Box width="270px" height="165px" borderWidth="1px" borderRadius="lg" overflow="hidden">
-            <Box d="flex" alignItems="baseline" bgColor="teal.100" padding={3} paddingBottom="1.5">
+            <Box d="flex" alignItems="baseline" bgColor={ CardBgColor(post.organization.type) } padding={3} paddingBottom="1.5">
                 <Spacer />
                 <Text fontWeight='bold' fontSize="60">{ post.waiting_time }</Text>
                 <Text marginLeft="2">分</Text>
