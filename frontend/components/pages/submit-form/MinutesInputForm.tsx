@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 import { useNumberInput } from '@chakra-ui/number-input'
-import { HStack,Button, Input, Text } from '@chakra-ui/react'
+import { HStack, Button, Input, Text } from '@chakra-ui/react'
 
 const NumberInputForm: FC = () => {
     const {

@@ -3,7 +3,7 @@ import { NextPage } from 'next'
 import { Container, Box, Select, Input, Button, Text } from '@chakra-ui/react'
 
 const Login: NextPage = () => {
-    return(
+    return (
         <Container centerContent padding="4">
             <Text fontSize="25px">ログイン</Text>
             <Box padding="2">
