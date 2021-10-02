@@ -19,3 +19,9 @@ class OrganizationSerializer(serializers.ModelSerializer):
 
     def get_type(self, obj):
         return OrganizationType.name_of_value(obj.type)
+
+
+class OrganizationUpdateFromUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Organization
+        fields = ("description",)
