@@ -15,16 +15,22 @@ dayjs.extend(relativeTime)
 const Card: FC<WaitingTimeHistory> = ( post ) => {
     return (
         <Box width="270px" height="165px" borderWidth="1px" borderRadius="lg" overflow="hidden">
-            <Box d="flex" alignItems="baseline" bgColor={ CardBgColor(post.organization.type) } padding={3} paddingBottom="1.5">
+            <Box d="flex" alignItems="baseline" bgColor={ CardBgColor(post.organization.type) } minHeight="65%" padding={3} paddingBottom="1.5">
                 <Spacer />
                 <Text fontWeight='bold' fontSize="60">{ post.waiting_time }</Text>
-                <Text marginLeft="2">分</Text>
+                {
+                    ( post.waiting_time !== null )
+                        ? <Text marginLeft="2">分</Text>
+                        : <Text margin="auto">まだ提出がありません</Text>
+                }
                 <Spacer />
             </Box>
             <Flex padding="3" borderTop="1px" borderTopColor="gray.100">
                 <Text fontSize="20" marginLeft="1" letterSpacing="wider">{ post.organization.name }</Text>
                 <Spacer minWidth="2" />
-                <Text margin="auto" color="gray.600" fontSize="12px">{ dayjs( post.created_at ).fromNow() }に更新</Text>
+                {
+                    post.created_at && <Text margin="auto" color="gray.600" fontSize="12px">{ dayjs( post.created_at ).fromNow() }に更新</Text>
+                }
             </Flex>　
         </Box>
     )
