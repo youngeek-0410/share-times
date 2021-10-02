@@ -12,22 +12,22 @@ import CardList from 'components/pages/list/CardList'
 const List: NextPage = () => {
   const [posts, setPosts] = useState<WaitingTimeHistoryObject>()
 
-    useEffect(() => {
-        fetch('http://localhost/api/waiting_time_history/?only-latest=true', {method: 'GET'})
-        .then(res => res.json())
-        .then(( data: WaitingTimeHistoryObject ) => {
-            setPosts(data)
-            console.log(data)
-        })
-    },[])
-  if(!posts){
+  useEffect(() => {
+    fetch('http://localhost/api/waiting_time_history/?only-latest=true', { method: 'GET' })
+      .then(res => res.json())
+      .then((data: WaitingTimeHistoryObject) => {
+        setPosts(data)
+        console.log(data)
+      })
+  }, [])
+  if (!posts) {
     return <LoadingMessage />
   }
-  return(
+  return (
     <VStack padding="4">
-      {/* <ListControlBar /> */}
+      <ListControlBar />
       <CardList {...posts} />
-  </VStack>
+    </VStack>
   )
 }
 
