@@ -4,13 +4,14 @@ import React, { useState, useEffect } from 'react'
 import { Container, Box, Select, Input, Button, Text } from '@chakra-ui/react'
 
 import { Organization } from 'types/WaitingTimeHistories'
+
 import getOrganizations from './api/getOrganizations'
-import requestLogin from './api/requestLogin'
+import login from './api/login'
 
 const Login: NextPage = () => {
     const [organizations, setOrganizations] = useState<Organization[]>([])
 
-    const [selectedOrganization, setSelectedOrganization] = useState("")
+    const [organizationName, setOrganizationName] = useState("")
     const [password, setPassword] = useState<string>("")
 
     useEffect(() => {
@@ -21,12 +22,12 @@ const Login: NextPage = () => {
         setPassword(event.target.value)
     }
     const onOrganizationSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelectedOrganization(event.target.value)
+        setOrganizationName(event.target.value)
     }
 
-    // const login =  () => {
-    //     requestLogin(selectedOrganization, password)
-    // }
+    const handleLogin = () => {
+        login(organizationName, password)
+    }
 
     return (
         <Container centerContent padding="4">
@@ -37,7 +38,7 @@ const Login: NextPage = () => {
                     <Select id="organization" onChange={onOrganizationSelect} placeholder="選択する">
                         {
                             organizations.map(
-                                organization => <option key={organization.uuid} value={organization.name}>{organization.name}</option>
+                                (organization: Organization) => <option key={organization.uuid} value={organization.name}>{organization.name}</option>
                             )
                         }
                     </Select>
@@ -47,7 +48,7 @@ const Login: NextPage = () => {
                     <Input id="password" onInput={onPasswordInput} placeholder="パスワードを入力" />
                 </Box>
             </Box>
-            <Button colorScheme="teal" onClick={login}>ログイン</Button>
+            <Button colorScheme="teal" onClick={handleLogin}>ログイン</Button>
         </Container>
     )
 }
