@@ -4,8 +4,7 @@ from .base import *
 
 DEBUG = False
 
-# TODO: wild cardにしない
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [os.environ.get("PUBLIC_IP")]
 
 DATABASES = {
     "default": {
@@ -20,3 +19,8 @@ DATABASES = {
 
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
+# security
+# SECURE_BROWSER_XSS_FILTER = True
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True

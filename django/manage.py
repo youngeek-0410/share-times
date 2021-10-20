@@ -7,7 +7,7 @@ import sys
 def main():
     """Run administrative tasks."""
     # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
-    envstate = os.environ.get("ENV_STATE", "local")
+    envstate = os.environ.get("ENV_STATE", "production")
     if envstate == "production":
         # settings/production.py
         os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.production")
