@@ -43,7 +43,7 @@ class OrganizationAdmin(admin.ModelAdmin):
             },
         ),
     )
-    list_filter = ("is_admin", "type")
+    list_filter = ("is_staff", "type")
     list_display = ("name", "type", "last_login")
     search_fields = ("name",)
     ordering = ("last_login",)

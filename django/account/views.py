@@ -23,14 +23,14 @@ class OrganizationViewSet(
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def list(self, request, *args, **kwargs):
-        queryset = Organization.objects.filter(is_admin=False)
+        queryset = Organization.objects.filter(is_staff=False)
         serializer = OrganizationSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop("partial", True)
         instance = self.get_object()
-        if request.user.uuid != instance.uuid and not request.user.is_admin:
+        if request.user.uuid != instance.uuid and not request.user.is_staff:
             raise PermissionDenied("You are not allowed to submit this data.")
         serializer = OrganizationSerializer(instance, data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
