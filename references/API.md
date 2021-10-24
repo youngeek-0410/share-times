@@ -9,7 +9,7 @@ swaggerは作成コストが大きいのでmdで作成します。
 - POST  
     受け付けません。
 - GET  
-    Organization一覧(is_adminを除く)が返却されます。
+    Organization一覧(is_staffを除く)が返却されます。
 
 ### /api/organization/{organization_uuid}
 

@@ -33,7 +33,7 @@ class WaitingTimeHistoryViewSet(
     def list(self, request, *args, **kwargs):
         dict = {}
         if self.request.query_params.get("only-latest") == "true":
-            for org in Organization.objects.filter(is_admin=False):
+            for org in Organization.objects.filter(is_staff=False):
                 queryset = (
                     WaitingTimeHistory.objects.filter(organization__uuid=org.uuid).order_by("-created_at").first()
                 )
@@ -47,7 +47,7 @@ class WaitingTimeHistoryViewSet(
                         "organization": OrganizationSerializer(org).data,
                     }
         else:
-            for org in Organization.objects.filter(is_admin=False):
+            for org in Organization.objects.filter(is_staff=False):
                 queryset = WaitingTimeHistory.objects.filter(organization__uuid=org.uuid).order_by("-created_at")
                 dict[org.name] = WaitingTimeHistorySerializer(queryset, many=True).data
         return Response(dict, status=status.HTTP_200_OK)

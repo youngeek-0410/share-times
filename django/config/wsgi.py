@@ -13,6 +13,14 @@ from django.core.wsgi import get_wsgi_application
 
 # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 
+# check running on docker
+if not os.path.exists("/.dockerenv"):
+    from dotenv import load_dotenv
+
+    from .settings.base import BASE_DIR
+
+    load_dotenv(os.path.join(str(BASE_DIR), "django.env"))
+
 envstate = os.environ.get("ENV_STATE")
 if envstate == "production":
     # settings/production.py

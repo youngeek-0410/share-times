@@ -18,6 +18,10 @@ import rest_framework.authtoken.views as auth_views
 from django.contrib import admin
 from django.urls import include, path
 
+admin.site.site_title = "share-times"  # URL title
+admin.site.site_header = "展示待ち時間管理システム"  # title
+admin.site.index_title = "share-times"  # sub title
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api-auth/", include("rest_framework.urls")),
